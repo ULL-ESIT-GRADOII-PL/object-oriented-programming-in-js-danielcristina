@@ -23,14 +23,24 @@
     this.toFarenheit = function(){
       return ((valor * 9/5)+32);
     };
+    //funcion Celsius to Kelvin
+    this.toKelvin = function(){
+      return (valor + 273.15);
+    };
   }
   Celsius.prototype = new Temperatura();
   Celsius.prototype.constructor = Celsius;
 
   function Farenheit(valor) {
     Temperatura.call(this, valor, "f");
+    // funcion Farenheit to Celsius
     this.toCelsius = function(){
-      (valor - 32)*5/9;
+      return (valor - 32)*5/9;
+    };
+    // funcion Farenheit to Kelvin
+    this.toKelvin = function(){
+      var aux = (5*(valor - 32))/9
+      return (aux + 273.15);
     };
   }
   Farenheit.prototype = new Temperatura();
@@ -38,6 +48,15 @@
 
   function Kelvin(valor) {
     Temperatura.call(this, valor, "k");
+    // funcion Kelvin to Celsius
+    this.toCelsius = function(){
+      return (valor - 273.15);
+    };
+    // funcion Kelvin to Farenheit
+    this.toFarenheit = function(){
+      var aux = (9*(valor - 273.15))/5
+      return (aux + 32);
+    };
   }
   Kelvin.prototype = new Temperatura();
   Kelvin.prototype.constructor = Kelvin;
@@ -48,7 +67,7 @@
   exports.Celsius = Celsius;
   exports.Farenheit = Farenheit;
 
-  exports.convertir = function()
+  exports.convertir = function(){
     var valor     = document.getElementById('convert').value,
         elemento  = document.getElementById('converted'),
         /* Extienda la RegeExp a la especificación. use una XRegExp */
@@ -71,17 +90,23 @@
         case 'c':
           var celsius = new Celsius(numero);
           elemento.innerHTML = celsius.toFarenheit().toFixed(2) + " Farenheit.";
+          elemento.innerHTML = celsius.toKelvin().toFixed(2) + " Kelvin.";
+
           break;
         case 'f':
           var farenheit = new Farenheit(numero);
           elemento.innerHTML = farenheit.toCelsius().toFixed(2) + " Celsius";
+          elemento.innerHTML = farenheit.toKelvin().toFixed(2) + " Kelvin";
           break;
-        /*case 'k':
+        case 'k':
           var kelvin = new Kelvin(numero);
           elemento.innerHTML = kelvin.toCelsius().toFixed(2) + " Celsius";
-          break;*/
+          elemento.innerHTML = kelvin.toFarenheit().toFixed(2) + " Farenheit";
+          break;
+
         default:
-          /* rellene este código */
+          elemento.innerHTML = "ERROR! Intenta algo como '-4.2C' ";
+           /* rellene este código */
       }
     }
     else
