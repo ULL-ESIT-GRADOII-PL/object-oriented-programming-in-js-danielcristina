@@ -21,17 +21,32 @@
 
   function Celsius(valor)
   {
+    Temperatura.call(this, valor, "c");
   }
+  Celsius.prototype = new Temperatura();
+  Celsius.prototype.constructor = Celsius;
 
   function Farenheit(valor)
   {
+    Temperatura.call(this, valor, "f");
   }
+  Farenheit.prototype = new Temperatura();
+  Farenheit.prototype.constructor = Farenheit;
+
+  function Kelvin(valor)
+  {
+    Temperatura.call(this, valor, "k");
+  }
+  Kelvin.prototype = new Temperatura();
+  Kelvin.prototype.constructor = Kelvin;
+
+
 
   exports.Temperatura = Temperatura;
   exports.Celsius = Celsius;
   exports.Farenheit = Farenheit;
 
-  exports.convertir = function() {
+  exports.convertir = function()
     var valor     = document.getElementById('convert').value,
         elemento  = document.getElementById('converted'),
         /* Extienda la RegeExp a la especificación. use una XRegExp */
