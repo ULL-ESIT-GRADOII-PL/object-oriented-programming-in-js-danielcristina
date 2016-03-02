@@ -73,26 +73,22 @@
         /* Extienda la RegeExp a la especificación. use una XRegExp */
         regexp    = /^\s*([-+]?\d+(?:\.\d+)?(?:e[+-]?\d+)?)\s*([fkc])\s*(?:to)?\s*([fkc])$/i,
 
-      /*  expresion = XRegExp('^\s*(<num> ([-+])?\d+(?:\.\d+)?(?:e[+-]?\d+)?) # numero \n' +
-                           '\s*(<temp1> ([fkc]))\s* # temperatura1 \n' +
-                          '(?:to)?\s* # to \n' +
-                          '(<temp2> ([fkc]))$ # temperatura2', 'i');*/
-                          
-    /*   date = XRegExp('(?<year>  [0-9]{4} ) -?  # year  \n' +
-               '(?<month> [0-9]{2} ) -?  # month \n' +
-               '(?<day>   [0-9]{2} )     # day     ', 'x');
-    */
-        valor     = valor.match(regexp);
-      //  var match = XRegExp.exec(valor, expresion);
+        expresion = XRegExp('(?<num>    ^[ ]*[-+]?[0-9](.[0-9]+)?[ ]*((e[+-]?[ ]*[0-9]+)?)[ ]*)   # numero       \n\
+                           (?<temp1>    [ ]*([fkcFKC]))                                           # temperatura1 \n\
+                           (?<to>       [ ]*(?:to)?[ ]*)                                          # to           \n\
+                           (?<temp2>    [fkcFKC])[ ]*$                                            # Nuevo tipo'      ),
+
+       valor = valor.match(regexp);
+    ///    valor = XRegExp.exec(valor, expresion);
 
    if (valor) {
    //if (match) {
       var numero = valor[1],
           tipo   = valor[2].toLowerCase(),
           tipo2  = valor[3].toLowerCase();
-  /*    var numero = match.numero,
-          tipo = match.temp1,
-          tipo2 = match.temp2;*/
+    /*  var numero = valor.num,
+          tipo = valor.temp1.toLowerCase(),
+          tipo2 = valor.temp2.toLowerCase(); */
 
       numero = parseFloat(numero);
       console.log("Valor: " + numero + ", Tipo: " + tipo);
