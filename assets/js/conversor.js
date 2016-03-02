@@ -71,7 +71,7 @@
     var valor     = document.getElementById('convert').value,
         elemento  = document.getElementById('converted'),
         /* Extienda la RegeExp a la especificación. use una XRegExp */
-        regexp    = /^\s*([-+]?\d+(?:\.\d+)?(?:e[+-]?\d+)?)\s*([a-z,A-Z]+)\s*$/i,
+        regexp    = /^\s*([-+]?\d+(?:\.\d+)?(?:e[+-]?\d+)?)\s*([fkc])\s*(?:to)?\s*([fkc])$/i,
 
     /*    date = XRegExp('(?<year>  [0-9]{4} ) -?  # year  \n' +
                '(?<month> [0-9]{2} ) -?  # month \n' +
@@ -81,7 +81,8 @@
 
     if (valor) {
       var numero = valor[1],
-          tipo   = valor[2].toLowerCase();
+          tipo   = valor[2].toLowerCase(),
+          tipo2  = valor[3].toLowerCase();
 
       numero = parseFloat(numero);
       console.log("Valor: " + numero + ", Tipo: " + tipo);
@@ -89,18 +90,24 @@
       switch (tipo) {
         case 'c':
           var celsius = new Celsius(numero);
+          if (tipo2 == 'f')
           elemento.innerHTML = celsius.toFarenheit().toFixed(2) + " Farenheit.";
+          if (tipo2 == 'k')
           elemento.innerHTML = celsius.toKelvin().toFixed(2) + " Kelvin.";
 
           break;
         case 'f':
           var farenheit = new Farenheit(numero);
+          if (tipo2 == 'c')
           elemento.innerHTML = farenheit.toCelsius().toFixed(2) + " Celsius";
+          if (tipo2 == 'k')
           elemento.innerHTML = farenheit.toKelvin().toFixed(2) + " Kelvin";
           break;
         case 'k':
           var kelvin = new Kelvin(numero);
+          if (tipo2 == 'c')
           elemento.innerHTML = kelvin.toCelsius().toFixed(2) + " Celsius";
+          if (tipo2 == 'f')
           elemento.innerHTML = kelvin.toFarenheit().toFixed(2) + " Farenheit";
           break;
 
