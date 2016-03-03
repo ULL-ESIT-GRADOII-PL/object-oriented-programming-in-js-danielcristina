@@ -73,22 +73,18 @@
         /* Extienda la RegeExp a la especificación. use una XRegExp */
         regexp    = /^\s*([-+]?\d+(?:\.\d+)?(?:e[+-]?\d+)?)\s*([fkc])\s*(?:to)?\s*([fkc])$/i,
 
-        expresion = XRegExp('(?<num>    ^[ ]*[-+]?[0-9](.[0-9]+)?[ ]*((e[+-]?[ ]*[0-9]+)?)[ ]*)   # numero       \n\
-                           (?<temp1>    [ ]*([fkcFKC]))                                           # temperatura1 \n\
-                           (?<to>       [ ]*(?:to)?[ ]*)                                          # to           \n\
-                           (?<temp2>    [fkcFKC])[ ]*$                                            # Nuevo tipo'      ),
+        expresion = XRegExp('(?<num>   [-+]?[0-9]+(\.[0-9]+)?[ ]*(?:e[+-]?[ ]*[0-9]+)?)[ ]*   # numero       \n' +
+                            '(?<temp1>    [fkcFKC])[ ]*                                       # temperatura1 \n' +
+                            '(?<to>       (?:to)?)[ ]*                                        # to           \n' +
+                            '(?<temp2>    [fkcFKC])[ ]*                                       # temperatura2','x'),
 
-       valor = valor.match(regexp);
-    ///    valor = XRegExp.exec(valor, expresion);
+        valor = XRegExp.exec(valor, expresion);
 
    if (valor) {
-   //if (match) {
-      var numero = valor[1],
-          tipo   = valor[2].toLowerCase(),
-          tipo2  = valor[3].toLowerCase();
-    /*  var numero = valor.num,
+  
+      var numero = valor.num,
           tipo = valor.temp1.toLowerCase(),
-          tipo2 = valor.temp2.toLowerCase(); */
+          tipo2 = valor.temp2.toLowerCase();
 
       numero = parseFloat(numero);
       console.log("Valor: " + numero + ", Tipo: " + tipo);
@@ -100,7 +96,8 @@
           elemento.innerHTML = celsius.toFarenheit().toFixed(2) + " Farenheit.";
           if (tipo2 == 'k')
           elemento.innerHTML = celsius.toKelvin().toFixed(2) + " Kelvin.";
-
+          if (tipo2 == 'c')
+          elemento.innerHTML = "Conversión inválida";
           break;
         case 'f':
           var farenheit = new Farenheit(numero);
@@ -108,6 +105,8 @@
           elemento.innerHTML = farenheit.toCelsius().toFixed(2) + " Celsius";
           if (tipo2 == 'k')
           elemento.innerHTML = farenheit.toKelvin().toFixed(2) + " Kelvin";
+          if (tipo2 == 'f')
+          elemento.innerHTML = "Conversión inválida";
           break;
         case 'k':
           var kelvin = new Kelvin(numero);
@@ -115,6 +114,8 @@
           elemento.innerHTML = kelvin.toCelsius().toFixed(2) + " Celsius";
           if (tipo2 == 'f')
           elemento.innerHTML = kelvin.toFarenheit().toFixed(2) + " Farenheit";
+          if (tipo2 == 'k')
+          elemento.innerHTML = "Conversión inválida";
           break;
 
         default:
