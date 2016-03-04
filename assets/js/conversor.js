@@ -73,15 +73,15 @@
         /* Extienda la RegeExp a la especificación. use una XRegExp */
         regexp    = /^\s*([-+]?\d+(?:\.\d+)?(?:e[+-]?\d+)?)\s*([fkc])\s*(?:to)?\s*([fkc])$/i,
 
-        expresion = XRegExp('(?<num>   [-+]?[0-9]+(\.[0-9]+)?[ ]*(?:e[+-]?[ ]*[0-9]+)?)[ ]*   # numero       \n' +
-                            '(?<temp1>    [fkcFKC])[ ]*                                       # temperatura1 \n' +
-                            '(?<to>       (?:to)?)[ ]*                                        # to           \n' +
-                            '(?<temp2>    [fkcFKC])[ ]*                                       # temperatura2','x'),
+        expresion = XRegExp('(?<num>   [-+]?[^\\.][0-9]+([\\.][0-9]+)?\\s*(?:e[+-]?[ ]*[0-9]+)?)\\s*   # numero       \n' +
+                            '(?<temp1>    [fkcFKC])\\s*                                       # temperatura1 \n' +
+                            '(?<to>       (?:to)?)\\s*                                        # to           \n' +
+                            '(?<temp2>    [fkcFKC])\\s*                                       # temperatura2','x'),
 
         valor = XRegExp.exec(valor, expresion);
 
    if (valor) {
-  
+
       var numero = valor.num,
           tipo = valor.temp1.toLowerCase(),
           tipo2 = valor.temp2.toLowerCase();
@@ -124,7 +124,7 @@
       }
     }
     else
-      elemento.innerHTML = "";
+      elemento.innerHTML = "Formato de entrada inválido";
   }
 
 })(this);
